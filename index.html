@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>FusionTrans Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --royal-1:#0056d2; /* primary */
+      --royal-2:#3b8ef0; /* lighter */
+      --white:#ffffff;
+      --muted:#6b7280;
+      --card-bg:#ffffff;
+      --radius:12px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--white);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header */
+    .site-header{
+      position:fixed;top:0;left:0;right:0;z-index:1000;
+      background:linear-gradient(90deg,var(--royal-1),var(--royal-2));
+      color:var(--white);
+      padding:12px 20px;
+      display:flex;align-items:center;justify-content:space-between;
+      box-shadow:0 6px 18px rgba(11,35,90,0.15);
+    }
+    .brand{display:flex;align-items:center;gap:14px}
+    .brand img{height:52px;width:auto;display:block}
+    .brand h1{font-size:18px;margin:0;font-weight:700}
+    .brand p{margin:0;font-size:12px;opacity:0.95}
+
+    nav.primary{display:flex;gap:18px;align-items:center}
+    nav.primary a{color:rgba(255,255,255,0.95);text-decoration:none;font-weight:600;font-size:14px}
+    nav.primary a:hover{opacity:0.95;text-decoration:underline}
+
+    main{padding-top:110px;max-width:1100px;margin:0 auto}
+
+    /* Hero */
+    .hero{
+      background:linear-gradient(135deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      border-radius:14px;
+      padding:64px 24px;
+      margin:22px 16px;
+      color:var(--white);
+      background-image:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      display:flex;flex-direction:column;align-items:center;justify-content:center;
+      text-align:center;
+      box-shadow:0 8px 30px rgba(3,26,78,0.08);
+    }
+    .hero h2{color:var(--white);font-size:2.1rem;margin:6px 0 8px;font-weight:700}
+    .hero .slogan{color:rgba(255,255,255,0.9);font-size:1.05rem;margin-bottom:18px}
+    .cta{display:inline-block;background:var(--white);color:var(--royal-1);padding:12px 20px;border-radius:10px;font-weight:700;text-decoration:none}
+    .cta:hover{filter:brightness(0.98)}
+
+    /* Sections */
+    section.block{padding:60px 18px;margin:0 16px}
+    h3.block-title{font-size:1.5rem;color:var(--royal-1);margin:0 0 12px}
+    p.lead{color:var(--muted);max-width:900px;margin:0 auto}
+
+    /* Services grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;margin-top:26px}
+    .card{background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:0 6px 24px rgba(11,35,90,0.06);transition:transform .28s,box-shadow .28s}
+    .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(11,35,90,0.09)}
+    .card .icon{font-size:36px;margin-bottom:10px}
+    .card h4{margin:0 0 8px;color:var(--royal-1)}
+    .card p{color:var(--muted);margin:0}
+
+    /* Contact form */
+    .contact-wrap{display:flex;flex-direction:column;gap:18px;align-items:center}
+    form.contact{width:100%;max-width:680px;background:#fff;padding:18px;border-radius:12px;box-shadow:0 6px 20px rgba(11,35,90,0.05)}
+    form.contact label{display:block;font-size:13px;margin-bottom:6px;color:#0f1724}
+    form.contact input, form.contact textarea{width:100%;padding:12px;border-radius:8px;border:1px solid #e6e9ef;font-size:15px}
+    form.contact textarea{resize:vertical}
+    .form-row{display:flex;gap:12px}
+    .form-row .col{flex:1}
+    .btn-primary{background:linear-gradient(90deg,var(--royal-1),var(--royal-2));color:var(--white);border:none;padding:12px 18px;border-radius:10px;font-weight:700;cursor:pointer}
+    .btn-primary:hover{opacity:0.98}
+
+    /* Footer */
+    footer.site{margin-top:40px;padding:28px 16px;text-align:center;color:var(--muted)}
+
+    /* Responsive tweaks */
+    @media (max-width:780px){
+      .brand h1{font-size:16px}
+      nav.primary{display:none}
+      .hero{padding:48px 18px}
+      .site-header{padding:10px 14px}
+    }
+  </style>
+  <script>
+    // simple form handler: open user's mail client with the message
+    function handleContact(evt){
+      evt.preventDefault();
+      const name = document.getElementById('c-name').value.trim();
+      const email = document.getElementById('c-email').value.trim();
+      const msg = document.getElementById('c-message').value.trim();
+      if(!name||!email||!msg){ alert('Please fill all fields.'); return; }
+      const subject = encodeURIComponent('Website Quote Request - ' + name);
+      const body = encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\nMessage:\n'+msg);
+      // open mail client
+      window.location.href = 'mailto:Yasir5634@gmail.com?subject='+subject+'&body='+body;
+    }
+
+    // reveal on scroll
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const reveal = ()=>{
+        document.querySelectorAll('section.block, .hero').forEach(el=>{
+          const top = el.getBoundingClientRect().top;
+          if(top < window.innerHeight*0.9) el.style.opacity=1, el.style.transform='none';
+        });
+      };
+      reveal(); window.addEventListener('scroll', reveal);
+    });
+  </script>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="brand">
+      <img src="FusionTrans_Solutions_logo_white.png" alt="FusionTrans Solutions logo">
+      <div>
+        <h1>FusionTrans Solutions</h1>
+        <p style="font-size:12px;margin-top:4px;opacity:0.95">Connecting World Through Words</p>
+      </div>
+    </div>
+
+    <nav class="primary" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero" style="background:linear-gradient(135deg,var(--royal-1),var(--royal-2));">
+      <h2>FusionTrans Solutions</h2>
+      <div class="slogan">Connecting World Through Words</div>
+      <p style="max-width:760px;color:rgba(255,255,255,0.9);margin-top:14px">Professional translation and localization services in over 50 languages — accurate, culturally adapted and ready for global markets.</p>
+      <div style="margin-top:18px"><a class="cta" href="#contact">Request a Quote</a></div>
+    </section>
+
+    <section id="about" class="block">
+      <h3 class="block-title">About Us</h3>
+      <p class="lead">FusionTrans Solutions is a professional translation and localization company helping global businesses communicate clearly across borders. With expert linguists in over 50 languages, we guarantee accuracy, quality, and cultural understanding in every project.</p>
+    </section>
+
+    <section id="services" class="block">
+      <h3 class="block-title">Our Services</h3>
+      <p class="lead">High-quality services tailored to your audience.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon">📄</div>
+          <h4>Document Translation</h4>
+          <p>Accurate, certified translations for legal, medical, academic, and business documents.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🌐</div>
+          <h4>Website Localization</h4>
+          <p>Adapt your website for local languages and cultures to expand into new markets.</p>
+        </div>
+        <div class="card">
+          <div class="icon">🎧</div>
+          <h4>Multimedia Translation</h4>
+          <p>Subtitling, transcription and voice-over services for your multimedia content.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="block">
+      <h3 class="block-title">Contact & Request a Quote</h3>
+      <p class="lead">Send us your project details and we'll respond with a tailored quote.</p>
+      <div class="contact-wrap">
+        <form class="contact" onsubmit="handleContact(event)">
+          <div class="form-row">
+            <div class="col">
+              <label for="c-name">Your Name</label>
+              <input id="c-name" name="name" type="text" placeholder="Full name" required>
+            </div>
+            <div class="col">
+              <label for="c-email">Email</label>
+              <input id="c-email" name="email" type="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div>
+            <label for="c-message">Project details / Message</label>
+            <textarea id="c-message" name="message" rows="5" placeholder="Describe your project, languages, deadline, files, etc." required></textarea>
+          </div>
+          <div style="text-align:right;margin-top:6px"><button class="btn-primary" type="submit">Send Request</button></div>
+        </form>
+
+        <div style="text-align:center;margin-top:6px;color:var(--muted)">
+          <p style="margin:6px 0"><strong>Email:</strong> <a href="mailto:Yasir5634@gmail.com">Yasir5634@gmail.com</a></p>
+          <p style="margin:6px 0"><strong>Phone:</strong> <a href="tel:+923135774302">0092 313 5774302</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site">
+    <p>&copy; 2025 FusionTrans Solutions. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
